@@ -1,6 +1,6 @@
 # Choose the desired PHP version
 # Choices available at https://hub.docker.com/_/php/ stick to "-cli" versions recommended
-FROM php:7.2-cli
+FROM php:8.0-cli
 
 MAINTAINER Adam Culp <adamculp@uws.net>
 
@@ -28,16 +28,16 @@ RUN chmod 744 /usr/local/bin/composer
 
 # Run composer installation of needed tools
 RUN $TARGET_DIR/composer-installer.sh && \
-   composer selfupdate && \
-   composer require --prefer-stable --prefer-source "hirak/prestissimo:^0.3" && \
+   composer selfupdate || true && \
+   composer init --name dokify/php-code-quality && \
    composer require --prefer-stable --prefer-dist \
-       "squizlabs/php_codesniffer:^3.0" \
-       "phpunit/phpunit:^8.0" \
-       "phploc/phploc:^4.0" \
-       "pdepend/pdepend:^2.5" \
-       "phpmd/phpmd:^2.6" \
-       "sebastian/phpcpd:^2.0" \
-       "friendsofphp/php-cs-fixer:^2.14" \
-       "phpcompatibility/php-compatibility:^9.0" \
-       "phpmetrics/phpmetrics:^2.4" \
-       "phpstan/phpstan:^0.11"
+       "squizlabs/php_codesniffer" \
+       "phpunit/phpunit" \
+       "phploc/phploc" \
+       "pdepend/pdepend" \
+       "phpmd/phpmd" \
+       "sebastian/phpcpd" \
+       "friendsofphp/php-cs-fixer" \
+       "phpcompatibility/php-compatibility" \
+       "phpmetrics/phpmetrics" \
+       "phpstan/phpstan"
